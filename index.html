@@ -3,131 +3,65 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Name - CV & Portfolio</title>
-    <!-- Link to your CSS file -->
+    <title>Your Name - Developer Portfolio</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- AOS library for scroll animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 <body>
 
-    <!-- ========== HERO / HEADER ========== -->
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="top-nav">
+        <div class="container">
+            <a href="index.html" class="logo">YN<span>.</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="cv.html">CV</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
     <header class="hero">
         <div class="container" data-aos="fade-up">
+            <span class="badge">👋 Welcome to my portfolio</span>
             <h1>Your Full Name</h1>
-            <p class="tagline">Python Developer | DevOps Enthusiast | Problem Solver</p>
+            <p class="tagline">Python Developer & DevOps Enthusiast</p>
+            <p class="sub-text">
+                I build robust, scalable applications and automate everything in sight. 
+                Explore my work and let's create something amazing together.
+            </p>
             <div class="hero-links">
-                <a href="#about">About Me</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+                <a href="cv.html" class="btn-primary">📄 View CV</a>
+                <a href="projects.html" class="btn-secondary">🚀 See Projects</a>
             </div>
         </div>
     </header>
 
-    <!-- ========== ABOUT SECTION ========== -->
-    <section id="about" class="section">
-        <div class="container" data-aos="fade-right">
-            <h2>About Me</h2>
-            <div class="about-grid">
-                <div>
-                    <p>
-                        Hi there! I'm a passionate developer with a love for building things 
-                        that live on the internet. I know Python, Git, and Docker, and I'm 
-                        currently expanding my skills into web development.
-                    </p>
-                    <p>
-                        I believe in writing clean code, automating everything possible, and 
-                        always learning something new. When I'm not coding, you'll find me 
-                        reading tech blogs or tinkering with my home lab.
-                    </p>
-                    <div class="skills">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Flask</span>
-                        <span class="skill-tag">HTML &amp; CSS</span>
-                    </div>
-                </div>
-                <div>
-                    <!-- Replace with your own photo if you have one -->
-                    <div class="profile-placeholder">
-                        <span>📸</span>
-                        <p>Your Photo Here</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== PROJECTS SECTION ========== -->
-    <section id="projects" class="section alt-bg">
-        <div class="container" data-aos="fade-left">
-            <h2>My Projects</h2>
-            <div class="project-grid">
-
-                <!-- Project Card 1 -->
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
-                    <h3>Dockerized CV Website</h3>
-                    <p>
-                        My personal CV website running on a 24/7 VM, containerized with Docker 
-                        for easy deployment anywhere.
-                    </p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Flask</span>
-                        <span>Docker</span>
-                        <span>Nginx</span>
-                    </div>
-                    <a href="https://github.com/yourusername/your-repo" target="_blank" class="btn">View on GitHub</a>
-                </div>
-
-                <!-- Project Card 2 -->
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
-                    <h3>Automated Backup Script</h3>
-                    <p>
-                        A bash script that automatically zips important files and backs them up 
-                        to cloud storage using cron scheduling.
-                    </p>
-                    <div class="project-tech">
-                        <span>Bash</span>
-                        <span>Cron</span>
-                        <span>AWS CLI</span>
-                    </div>
-                    <a href="https://github.com/yourusername/backup-script" target="_blank" class="btn">View on GitHub</a>
-                </div>
-
-                <!-- Project Card 3 -->
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
-                    <h3>Next Project</h3>
-                    <p>
-                        Describe your next project here. What problem does it solve? What 
-                        technologies did you use?
-                    </p>
-                    <div class="project-tech">
-                        <span>Tech 1</span>
-                        <span>Tech 2</span>
-                        <span>Tech 3</span>
-                    </div>
-                    <a href="#" class="btn">View on GitHub</a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== CONTACT SECTION ========== -->
-    <section id="contact" class="section">
-        <div class="container" data-aos="fade-up">
-            <h2>Contact Me</h2>
-            <p style="text-align:center; max-width:600px; margin:0 auto 30px;">
-                I'm always open to interesting conversations, collaboration opportunities, 
-                or just a friendly chat. Reach out through any of the links below!
+    <!-- ========== QUICK OVERVIEW ========== -->
+    <section class="quick-overview">
+        <div class="container">
+            <h2 data-aos="fade-up">Explore My World</h2>
+            <p class="subtitle" data-aos="fade-up" data-aos-delay="100">
+                A quick glance at what you'll find across my portfolio
             </p>
-            <div class="contact-links">
-                <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-                <a href="mailto:youremail@example.com">Email</a>
+            <div class="quick-grid">
+                <div class="quick-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="icon">📄</span>
+                    <h3>CV / Resume</h3>
+                    <p>My professional journey, skills, and experience in tech</p>
+                </div>
+                <div class="quick-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="icon">🚀</span>
+                    <h3>Projects</h3>
+                    <p>Real-world applications and tools I've built from scratch</p>
+                </div>
+                <div class="quick-card" data-aos="fade-up" data-aos-delay="400">
+                    <span class="icon">💬</span>
+                    <h3>Get in Touch</h3>
+                    <p>Let's connect for collaborations or just a friendly chat</p>
+                </div>
             </div>
         </div>
     </section>
@@ -135,18 +69,22 @@
     <!-- ========== FOOTER ========== -->
     <footer>
         <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank">🐙</a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank">🔗</a>
+                <a href="mailto:youremail@example.com">✉️</a>
+            </div>
             <p>&copy; 2026 Your Full Name. Built with ❤️ and caffeine.</p>
         </div>
     </footer>
 
-    <!-- AOS JavaScript library for scroll animations -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS (Animate On Scroll)
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
-            once: true
+            once: true,
+            offset: 100
         });
     </script>
 </body>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects - Your Name</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="top-nav">
+        <div class="container">
+            <a href="index.html" class="logo">YN<span>.</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="cv.html">CV</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== PROJECTS HEADER ========== -->
+    <div class="projects-header">
+        <div class="container" data-aos="fade-up">
+            <h1>My Projects</h1>
+            <p style="color: #6b6b7a; font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;">
+                Each project is a solution to a problem I encountered or a curiosity I pursued
+            </p>
+        </div>
+    </div>
+
+    <!-- ========== PROJECTS GRID ========== -->
+    <section class="section">
+        <div class="container">
+            <div class="projects-grid">
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="project-icon">🐳</span>
+                    <h3>Dockerized CV Website</h3>
+                    <p>
+                        A containerized portfolio website running on a 24/7 VM. Built with Flask, 
+                        Docker, and Nginx for seamless deployment anywhere.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>Docker</span>
+                        <span>Nginx</span>
+                    </div>
+                    <a href="https://github.com/yourusername/your-repo" target="_blank" class="btn">View on GitHub</a>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="project-icon">🔄</span>
+                    <h3>Automated Backup System</h3>
+                    <p>
+                        A robust backup solution using bash scripts and cron scheduling. Automatically 
+                        compresses and syncs files to AWS S3 with email notifications.
+                    </p>
+                    <div class="project-tech">
+                        <span>Bash</span>
+                        <span>Cron</span>
+                        <span>AWS CLI</span>
+                        <span>Python</span>
+                    </div>
+                    <a href="https://github.com/yourusername/backup-script" target="_blank" class="btn">View on GitHub</a>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="project-icon">📊</span>
+                    <h3>Analytics Dashboard</h3>
+                    <p>
+                        A real-time analytics dashboard for monitoring application metrics using 
+                        FastAPI, WebSockets, and Chart.js for data visualization.
+                    </p>
+                    <div class="project-tech">
+                        <span>FastAPI</span>
+                        <span>WebSockets</span>
+                        <span>Redis</span>
+                        <span>Chart.js</span>
+                    </div>
+                    <a href="https://github.com/yourusername/analytics-dashboard" target="_blank" class="btn">View on GitHub</a>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <span class="project-icon">🤖</span>
+                    <h3>DevOps Automation Tool</h3>
+                    <p>
+                        A CLI tool for automating common DevOps tasks like environment setup, 
+                        deployment, and monitoring with a simple command interface.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Click</span>
+                        <span>Docker</span>
+                        <span>Kubernetes</span>
+                    </div>
+                    <a href="#" class="btn">View on GitHub</a>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+                    <span class="project-icon">📱</span>
+                    <h3>Next Project</h3>
+                    <p>
+                        Describe your next exciting project here. What challenge does it solve?
+                        What technologies are you using?
+                    </p>
+                    <div class="project-tech">
+                        <span>Tech 1</span>
+                        <span>Tech 2</span>
+                        <span>Tech 3</span>
+                    </div>
+                    <a href="#" class="btn">View on GitHub</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank">🐙</a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank">🔗</a>
+                <a href="mailto:youremail@example.com">✉️</a>
+            </div>
+            <p>&copy; 2026 Your Full Name. Built with ❤️ and caffeine.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 80
+        });
+    </script>
+</body>
+</html>
