@@ -1,121 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CV - Your Name</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+<meta charset="UTF-8" />
+<script>
+(function(){
+  try{
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CV — Max Mustermann</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ========== NAVIGATION ========== -->
-    <nav class="top-nav">
-        <div class="container">
-            <a href="index.html" class="logo">YN<span>.</span></a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="cv.html" class="active">CV</a>
-                <a href="projects.html">Projects</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-    </nav>
+<div id="build-progress" aria-hidden="true"></div>
 
-    <!-- ========== CV HEADER ========== -->
-    <div class="cv-header">
-        <div class="container" data-aos="fade-up">
-            <h1>Your Full Name</h1>
-            <p class="title">Python Developer & DevOps Enthusiast</p>
-        </div>
+<nav class="top-nav" aria-label="Site pipeline">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">max<span class="cursor">_</span>mustermann</a>
+    <div class="pipeline">
+      <a href="index.html" class="stage done"><span class="num">01</span><span class="txt">INIT</span></a>
+      <span class="stage-connector"></span>
+      <a href="cv.html" class="stage active"><span class="num">02</span><span class="txt">BUILD</span></a>
+      <span class="stage-connector"></span>
+      <a href="projects.html" class="stage"><span class="num">03</span><span class="txt">ARTIFACTS</span></a>
+      <span class="stage-connector"></span>
+      <a href="contact.html" class="stage"><span class="num">04</span><span class="txt">DEPLOY</span></a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle theme">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="page-header container">
+  <span class="eyebrow">02 / BUILD</span>
+  <h1>The build log.</h1>
+  <p class="lede">A working history, kept in the same shape I'd want to read someone else's in: what changed, and why it mattered.</p>
+</div>
+
+<section class="section section-tight">
+  <div class="container">
+
+    <div class="section-label" data-reveal>EXPERIENCE</div>
+
+    <div class="changelog">
+
+      <div class="entry" data-reveal>
+        <span class="tag-version">v2022.03 → present</span>
+        <h3>Senior Backend Engineer</h3>
+        <p class="org">Tech Company Inc.</p>
+        <ul class="diff">
+          <li>Led the move to a microservice architecture on FastAPI and Docker, cutting average deploy time from 40 minutes to under 6.</li>
+          <li>Set up CI/CD pipelines that run the full test suite on every pull request, not just before release.</li>
+          <li>Mentored three junior developers through their first production incidents.</li>
+        </ul>
+      </div>
+
+      <div class="entry" data-reveal>
+        <span class="tag-version">v2020.06 → 2022.02</span>
+        <h3>DevOps Engineer</h3>
+        <p class="org">Cloud Solutions Ltd.</p>
+        <ul class="diff">
+          <li>Owned AWS infrastructure for a multi-tenant platform, including cost review that reduced monthly spend by ~18%.</li>
+          <li>Automated deployment processes that previously depended on a single person being online.</li>
+          <li>Built monitoring with Prometheus and Grafana, turning "something feels slow" into an actual number.</li>
+        </ul>
+      </div>
+
+      <div class="entry" data-reveal>
+        <span class="tag-version">v2019.01 → 2020.05</span>
+        <h3>Junior Developer</h3>
+        <p class="org">StartUp Labs</p>
+        <ul class="diff">
+          <li>Built and shipped web applications with Flask and React from first commit to first user.</li>
+          <li>Implemented REST APIs and the database integrations behind them.</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- ========== CV CONTENT ========== -->
-    <section class="section">
-        <div class="container">
+    <div class="section-label" data-reveal>EDUCATION &amp; CERTIFICATION</div>
 
-            <!-- Experience -->
-            <div class="cv-section" data-aos="fade-up">
-                <h2>💼 Experience</h2>
-                <div class="cv-item">
-                    <h3>Senior Python Developer</h3>
-                    <p class="meta">Tech Company Inc. • 2022 – Present</p>
-                    <p>Leading development of microservices architecture using FastAPI and Docker. Implementing CI/CD pipelines and mentoring junior developers.</p>
-                </div>
-                <div class="cv-item">
-                    <h3>DevOps Engineer</h3>
-                    <p class="meta">Cloud Solutions Ltd. • 2020 – 2022</p>
-                    <p>Managed AWS infrastructure, automated deployment processes, and built monitoring solutions using Prometheus and Grafana.</p>
-                </div>
-                <div class="cv-item">
-                    <h3>Junior Developer</h3>
-                    <p class="meta">StartUp Labs • 2019 – 2020</p>
-                    <p>Built web applications with Flask and React. Implemented REST APIs and database integrations.</p>
-                </div>
-            </div>
+    <div class="changelog">
+      <div class="entry" data-reveal>
+        <span class="tag-version">2015 → 2019</span>
+        <h3>B.Sc. Computer Science</h3>
+        <p class="org">University of Technology</p>
+        <ul class="diff">
+          <li>GPA 3.8/4.0, focused on software engineering and cloud computing.</li>
+        </ul>
+      </div>
+      <div class="entry" data-reveal>
+        <span class="tag-version">2021</span>
+        <h3>AWS Certified Solutions Architect</h3>
+        <p class="org">Amazon Web Services</p>
+        <ul class="diff">
+          <li>Professional-level certification in cloud architecture and design.</li>
+        </ul>
+      </div>
+    </div>
 
-            <!-- Education -->
-            <div class="cv-section" data-aos="fade-up">
-                <h2>🎓 Education</h2>
-                <div class="cv-item">
-                    <h3>Bachelor of Science in Computer Science</h3>
-                    <p class="meta">University of Technology • 2016 – 2020</p>
-                    <p>GPA: 3.8/4.0 • Focus on Software Engineering and Cloud Computing</p>
-                </div>
-                <div class="cv-item">
-                    <h3>AWS Certified Solutions Architect</h3>
-                    <p class="meta">Amazon Web Services • 2021</p>
-                    <p>Professional certification in cloud architecture and design</p>
-                </div>
-            </div>
+    <div class="section-label" data-reveal>SKILLS MANIFEST</div>
 
-            <!-- Skills -->
-            <div class="cv-section" data-aos="fade-up">
-                <h2>🛠️ Skills</h2>
-                <div class="skills-grid">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Flask</span>
-                    <span class="skill-tag">FastAPI</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">Kubernetes</span>
-                    <span class="skill-tag">AWS</span>
-                    <span class="skill-tag">Git</span>
-                    <span class="skill-tag">Linux</span>
-                    <span class="skill-tag">Nginx</span>
-                    <span class="skill-tag">PostgreSQL</span>
-                    <span class="skill-tag">Redis</span>
-                    <span class="skill-tag">CI/CD</span>
-                </div>
-            </div>
+    <div class="manifest" data-reveal>
+      <div class="manifest-col">
+        <span class="k">Languages</span>
+        <ul>
+          <li>Python</li>
+          <li>SQL</li>
+          <li>Bash</li>
+          <li>JavaScript</li>
+        </ul>
+      </div>
+      <div class="manifest-col">
+        <span class="k">Frameworks</span>
+        <ul>
+          <li>FastAPI</li>
+          <li>Flask</li>
+          <li>React</li>
+        </ul>
+      </div>
+      <div class="manifest-col">
+        <span class="k">Infrastructure</span>
+        <ul>
+          <li>Docker</li>
+          <li>Kubernetes</li>
+          <li>AWS</li>
+          <li>Terraform</li>
+        </ul>
+      </div>
+      <div class="manifest-col">
+        <span class="k">Practices</span>
+        <ul>
+          <li>CI / CD</li>
+          <li>Observability</li>
+          <li>Code review</li>
+          <li>Incident response</li>
+        </ul>
+      </div>
+    </div>
 
-            <!-- Download Button -->
-            <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
-                <a href="#" class="btn">📥 Download PDF Version</a>
-            </div>
+    <div style="text-align:center; margin-top:60px;" data-reveal>
+      <a href="#" class="btn btn-primary">Download as PDF ↓</a>
+    </div>
 
-        </div>
-    </section>
+  </div>
+</section>
 
-    <!-- ========== FOOTER ========== -->
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank">🐙</a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">🔗</a>
-                <a href="mailto:youremail@example.com">✉️</a>
-            </div>
-            <p>&copy; 2026 Your Full Name. Built with ❤️ and caffeine.</p>
-        </div>
-    </footer>
+<footer>
+  <div class="container">
+    <p class="log">SYSTEM STATUS: <strong>OPERATIONAL</strong> · LAST BUILD 2026.07 · LOCAL TIME <span id="footer-clock"></span></p>
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a href="mailto:max@example.com" aria-label="Email">@</a>
+    </div>
+  </div>
+</footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 80
-        });
-    </script>
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,91 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Name - Developer Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+<meta charset="UTF-8" />
+<script>
+(function(){
+  try{
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Max Mustermann — Backend &amp; Infrastructure Engineer</title>
+<meta name="description" content="Max Mustermann builds backend systems and infrastructure that stay boring in production." />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ========== NAVIGATION ========== -->
-    <nav class="top-nav">
-        <div class="container">
-            <a href="index.html" class="logo">YN<span>.</span></a>
-            <div class="nav-links">
-                <a href="index.html" class="active">Home</a>
-                <a href="cv.html">CV</a>
-                <a href="projects.html">Projects</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-    </nav>
+<div id="build-progress" aria-hidden="true"></div>
 
-    <!-- ========== HERO ========== -->
-    <header class="hero">
-        <div class="container" data-aos="fade-up">
-            <span class="badge">👋 Welcome to my portfolio</span>
-            <h1>Your Full Name</h1>
-            <p class="tagline">Python Developer & DevOps Enthusiast</p>
-            <p class="sub-text">
-                I build robust, scalable applications and automate everything in sight. 
-                Explore my work and let's create something amazing together.
-            </p>
-            <div class="hero-links">
-                <a href="cv.html" class="btn-primary">📄 View CV</a>
-                <a href="projects.html" class="btn-secondary">🚀 See Projects</a>
-            </div>
-        </div>
-    </header>
+<nav class="top-nav" aria-label="Site pipeline">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">max<span class="cursor">_</span>mustermann</a>
+    <div class="pipeline">
+      <a href="index.html" class="stage active"><span class="num">01</span><span class="txt">INIT</span></a>
+      <span class="stage-connector"></span>
+      <a href="cv.html" class="stage"><span class="num">02</span><span class="txt">BUILD</span></a>
+      <span class="stage-connector"></span>
+      <a href="projects.html" class="stage"><span class="num">03</span><span class="txt">ARTIFACTS</span></a>
+      <span class="stage-connector"></span>
+      <a href="contact.html" class="stage"><span class="num">04</span><span class="txt">DEPLOY</span></a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle theme">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
+  </div>
+</nav>
 
-    <!-- ========== QUICK OVERVIEW ========== -->
-    <section class="quick-overview">
-        <div class="container">
-            <h2 data-aos="fade-up">Explore My World</h2>
-            <p class="subtitle" data-aos="fade-up" data-aos-delay="100">
-                A quick glance at what you'll find across my portfolio
-            </p>
-            <div class="quick-grid">
-                <div class="quick-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="icon">📄</span>
-                    <h3>CV / Resume</h3>
-                    <p>My professional journey, skills, and experience in tech</p>
-                </div>
-                <div class="quick-card" data-aos="fade-up" data-aos-delay="300">
-                    <span class="icon">🚀</span>
-                    <h3>Projects</h3>
-                    <p>Real-world applications and tools I've built from scratch</p>
-                </div>
-                <div class="quick-card" data-aos="fade-up" data-aos-delay="400">
-                    <span class="icon">💬</span>
-                    <h3>Get in Touch</h3>
-                    <p>Let's connect for collaborations or just a friendly chat</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot live"></span>STATUS: OPERATIONAL — accepting new work</span>
+      <h1>I build backend systems that stay <em>boring</em> in production.</h1>
+      <p class="tagline">Python · Infrastructure · Cloud Platforms</p>
+      <p class="lede">Six years designing services and the pipelines that ship them — with a habit of writing down why a thing works, not just that it does, so the next person (often me) doesn't have to guess.</p>
+      <div class="cta-row">
+        <a href="projects.html" class="btn btn-primary">See the work →</a>
+        <a href="cv.html" class="btn btn-ghost">Read the CV</a>
+      </div>
+    </div>
 
-    <!-- ========== FOOTER ========== -->
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank">🐙</a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">🔗</a>
-                <a href="mailto:youremail@example.com">✉️</a>
-            </div>
-            <p>&copy; 2026 Your Full Name. Built with ❤️ and caffeine.</p>
-        </div>
-    </footer>
+    <div class="diagram-wrap" data-reveal>
+      <div class="cap">// how a request usually travels through my stack</div>
+      <svg viewBox="0 0 360 220" width="100%" role="img" aria-label="Diagram: code, build, test, deploy and monitor stages connected in a pipeline">
+        <defs></defs>
+        <path class="pipe-line" d="M40,40 H320 M40,40 V180 M40,180 H320 M320,40 V180"/>
+        <path class="pipe-flow" d="M40,40 H320 V180 H40 V40"/>
+        <g>
+          <circle class="pipe-node active" cx="40" cy="40" r="7"/>
+          <text class="pipe-label" x="40" y="24" text-anchor="middle">CODE</text>
+        </g>
+        <g>
+          <circle class="pipe-node" cx="320" cy="40" r="7"/>
+          <text class="pipe-label" x="320" y="24" text-anchor="middle">BUILD</text>
+        </g>
+        <g>
+          <circle class="pipe-node" cx="320" cy="180" r="7"/>
+          <text class="pipe-label" x="320" y="200" text-anchor="middle">TEST</text>
+        </g>
+        <g>
+          <circle class="pipe-node" cx="40" cy="180" r="7"/>
+          <text class="pipe-label" x="40" y="200" text-anchor="middle">DEPLOY</text>
+        </g>
+        <text class="pipe-label" x="180" y="112" text-anchor="middle" style="font-size:9px; letter-spacing:.12em;">MONITOR ↻</text>
+      </svg>
+    </div>
+  </div>
+</header>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
-        });
-    </script>
+<section class="section section-tight">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">WHAT I DO</span>
+      <h2>Three things I actually get asked for.</h2>
+      <p>Not an exhaustive list — the parts of the job I'm reached for most often.</p>
+    </div>
+
+    <div class="feature-grid" data-reveal>
+      <div class="feature">
+        <span class="tag">Backend</span>
+        <h3>Services that hold their shape</h3>
+        <p>APIs and background workers built for the load they'll actually see, with the boring parts — auth, retries, migrations — done properly the first time.</p>
+      </div>
+      <div class="feature">
+        <span class="tag">Infrastructure</span>
+        <h3>Deploys nobody has to babysit</h3>
+        <p>Containerised environments and pipelines that go from commit to production without a manual checklist taped to someone's monitor.</p>
+      </div>
+      <div class="feature">
+        <span class="tag">Reliability</span>
+        <h3>Problems found before customers do</h3>
+        <p>Monitoring and alerting tuned so the pager rings for things that matter, and dashboards that answer "is it us?" in under a minute.</p>
+      </div>
+    </div>
+
+    <div class="stat-rail" data-reveal>
+      <div class="stat">
+        <span class="n">6+</span>
+        <span class="l">Years in production systems</span>
+      </div>
+      <div class="stat">
+        <span class="n">3</span>
+        <span class="l">Cloud platforms shipped on</span>
+      </div>
+      <div class="stat">
+        <span class="n">0</span>
+        <span class="l">3am pages I'd call fun</span>
+      </div>
+    </div>
+
+    <div style="text-align:center;" data-reveal>
+      <p class="lede" style="margin:0 auto 22px;">Curious what any of that actually looked like?</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="projects.html" class="btn btn-primary">Browse projects →</a>
+        <a href="contact.html" class="btn-link">or just say hello →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p class="log">SYSTEM STATUS: <strong>OPERATIONAL</strong> · LAST BUILD 2026.07 · LOCAL TIME <span id="footer-clock"></span></p>
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a href="mailto:max@example.com" aria-label="Email">@</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

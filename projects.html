@@ -1,145 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects - Your Name</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+<meta charset="UTF-8" />
+<script>
+(function(){
+  try{
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects — Max Mustermann</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ========== NAVIGATION ========== -->
-    <nav class="top-nav">
-        <div class="container">
-            <a href="index.html" class="logo">YN<span>.</span></a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="cv.html">CV</a>
-                <a href="projects.html" class="active">Projects</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-    </nav>
+<div id="build-progress" aria-hidden="true"></div>
 
-    <!-- ========== PROJECTS HEADER ========== -->
-    <div class="projects-header">
-        <div class="container" data-aos="fade-up">
-            <h1>My Projects</h1>
-            <p style="color: #6b6b7a; font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;">
-                Each project is a solution to a problem I encountered or a curiosity I pursued
-            </p>
-        </div>
+<nav class="top-nav" aria-label="Site pipeline">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">max<span class="cursor">_</span>mustermann</a>
+    <div class="pipeline">
+      <a href="index.html" class="stage done"><span class="num">01</span><span class="txt">INIT</span></a>
+      <span class="stage-connector"></span>
+      <a href="cv.html" class="stage done"><span class="num">02</span><span class="txt">BUILD</span></a>
+      <span class="stage-connector"></span>
+      <a href="projects.html" class="stage active"><span class="num">03</span><span class="txt">ARTIFACTS</span></a>
+      <span class="stage-connector"></span>
+      <a href="contact.html" class="stage"><span class="num">04</span><span class="txt">DEPLOY</span></a>
     </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle theme">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
+  </div>
+</nav>
 
-    <!-- ========== PROJECTS GRID ========== -->
-    <section class="section">
-        <div class="container">
-            <div class="projects-grid">
+<div class="page-header container">
+  <span class="eyebrow">03 / ARTIFACTS</span>
+  <h1>What the pipeline produced.</h1>
+  <p class="lede">A handful of things I've built and kept running — most started as "this manual step is annoying" and grew from there.</p>
+</div>
 
-                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <span class="project-icon">🐳</span>
-                    <h3>Dockerized CV Website</h3>
-                    <p>
-                        A containerized portfolio website running on a 24/7 VM. Built with Flask, 
-                        Docker, and Nginx for seamless deployment anywhere.
-                    </p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Flask</span>
-                        <span>Docker</span>
-                        <span>Nginx</span>
-                    </div>
-                    <a href="https://github.com/yourusername/your-repo" target="_blank" class="btn">View on GitHub</a>
-                </div>
+<section class="section section-tight">
+  <div class="container">
+    <div class="artifact-grid">
 
-                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="project-icon">🔄</span>
-                    <h3>Automated Backup System</h3>
-                    <p>
-                        A robust backup solution using bash scripts and cron scheduling. Automatically 
-                        compresses and syncs files to AWS S3 with email notifications.
-                    </p>
-                    <div class="project-tech">
-                        <span>Bash</span>
-                        <span>Cron</span>
-                        <span>AWS CLI</span>
-                        <span>Python</span>
-                    </div>
-                    <a href="https://github.com/yourusername/backup-script" target="_blank" class="btn">View on GitHub</a>
-                </div>
-
-                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                    <span class="project-icon">📊</span>
-                    <h3>Analytics Dashboard</h3>
-                    <p>
-                        A real-time analytics dashboard for monitoring application metrics using 
-                        FastAPI, WebSockets, and Chart.js for data visualization.
-                    </p>
-                    <div class="project-tech">
-                        <span>FastAPI</span>
-                        <span>WebSockets</span>
-                        <span>Redis</span>
-                        <span>Chart.js</span>
-                    </div>
-                    <a href="https://github.com/yourusername/analytics-dashboard" target="_blank" class="btn">View on GitHub</a>
-                </div>
-
-                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
-                    <span class="project-icon">🤖</span>
-                    <h3>DevOps Automation Tool</h3>
-                    <p>
-                        A CLI tool for automating common DevOps tasks like environment setup, 
-                        deployment, and monitoring with a simple command interface.
-                    </p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Click</span>
-                        <span>Docker</span>
-                        <span>Kubernetes</span>
-                    </div>
-                    <a href="#" class="btn">View on GitHub</a>
-                </div>
-
-                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
-                    <span class="project-icon">📱</span>
-                    <h3>Next Project</h3>
-                    <p>
-                        Describe your next exciting project here. What challenge does it solve?
-                        What technologies are you using?
-                    </p>
-                    <div class="project-tech">
-                        <span>Tech 1</span>
-                        <span>Tech 2</span>
-                        <span>Tech 3</span>
-                    </div>
-                    <a href="#" class="btn">View on GitHub</a>
-                </div>
-
-            </div>
+      <article class="artifact" data-reveal>
+        <div class="artifact-head">
+          <h3>Dockerized Portfolio</h3>
+          <span class="version">v1.4.0</span>
         </div>
-    </section>
-
-    <!-- ========== FOOTER ========== -->
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank">🐙</a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">🔗</a>
-                <a href="mailto:youremail@example.com">✉️</a>
-            </div>
-            <p>&copy; 2026 Your Full Name. Built with ❤️ and caffeine.</p>
+        <p class="desc">This site's predecessor: a containerised portfolio running on a small always-on VM, served through Nginx so it survives traffic spikes without babysitting.</p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Nginx</span>
         </div>
-    </footer>
+        <a href="#" class="btn-link">View source →</a>
+      </article>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 80
-        });
-    </script>
+      <article class="artifact" data-reveal>
+        <div class="artifact-head">
+          <h3>Automated Backup</h3>
+          <span class="version">v2.1.0</span>
+        </div>
+        <p class="desc">A backup tool using bash and cron scheduling that compresses and syncs files to S3 on a timer, so "did the backup run?" stopped being a question anyone had to ask.</p>
+        <div class="tag-row">
+          <span class="tag">Bash</span>
+          <span class="tag">AWS CLI</span>
+          <span class="tag">Cron</span>
+        </div>
+        <a href="#" class="btn-link">View source →</a>
+      </article>
+
+      <article class="artifact" data-reveal>
+        <div class="artifact-head">
+          <h3>Analytics Dashboard</h3>
+          <span class="version">v3.0.2</span>
+        </div>
+        <p class="desc">A real-time dashboard for application metrics, built on FastAPI and WebSockets, so incidents show up as a moving line instead of a support ticket.</p>
+        <div class="tag-row">
+          <span class="tag">FastAPI</span>
+          <span class="tag">Redis</span>
+          <span class="tag">WebSockets</span>
+        </div>
+        <a href="#" class="btn-link">View source →</a>
+      </article>
+
+      <article class="artifact" data-reveal>
+        <div class="artifact-head">
+          <h3>DevOps CLI</h3>
+          <span class="version">v1.0.0</span>
+        </div>
+        <p class="desc">A small CLI that wraps the repetitive parts of environment setup, deployment and monitoring into commands a new hire can run on day one.</p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Click</span>
+          <span class="tag">K8s</span>
+        </div>
+        <a href="#" class="btn-link">View source →</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p class="log">SYSTEM STATUS: <strong>OPERATIONAL</strong> · LAST BUILD 2026.07 · LOCAL TIME <span id="footer-clock"></span></p>
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a href="mailto:max@example.com" aria-label="Email">@</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

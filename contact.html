@@ -1,21 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact - Your Name</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+<meta charset="UTF-8" />
+<script>
+(function(){
+  try{
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Max Mustermann</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ========== NAVIGATION ========== -->
-    <nav class="top-nav">
-        <div class="container">
-            <a href="index.html" class="logo">YN<span>.</span></a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="cv.html">CV</a>
-                <a href="projects.html">Projects</a>
-                <a href="contact.html" class="active">Contact</a>
-            </div
+<div id="build-progress" aria-hidden="true"></div>
+
+<nav class="top-nav" aria-label="Site pipeline">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">max<span class="cursor">_</span>mustermann</a>
+    <div class="pipeline">
+      <a href="index.html" class="stage done"><span class="num">01</span><span class="txt">INIT</span></a>
+      <span class="stage-connector"></span>
+      <a href="cv.html" class="stage done"><span class="num">02</span><span class="txt">BUILD</span></a>
+      <span class="stage-connector"></span>
+      <a href="projects.html" class="stage done"><span class="num">03</span><span class="txt">ARTIFACTS</span></a>
+      <span class="stage-connector"></span>
+      <a href="contact.html" class="stage active"><span class="num">04</span><span class="txt">DEPLOY</span></a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle theme">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="page-header container">
+  <span class="eyebrow">04 / DEPLOY</span>
+  <h1>Ship a message.</h1>
+  <p class="lede">Open to new roles, contract work, or just talking shop about infrastructure. A short note gets a real reply.</p>
+</div>
+
+<section class="section section-tight">
+  <div class="container">
+    <div class="contact-layout">
+
+      <div class="contact-info" data-reveal>
+        <a href="mailto:max@example.com">
+          <span class="ic">@</span> max@example.com
+        </a>
+        <a href="#" target="_blank" rel="noopener">
+          <span class="ic">in</span> linkedin.com/in/maxmustermann
+        </a>
+        <a href="#" target="_blank" rel="noopener">
+          <span class="ic">gh</span> github.com/maxmustermann
+        </a>
+      </div>
+
+      <div class="ticket" data-reveal>
+        <div class="ticket-head">POST /message &nbsp;·&nbsp; Content-Type: application/json</div>
+        <form id="contact-form" novalidate>
+          <div class="field">
+            <label for="name">name <span class="type">// string, required</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">email <span class="type">// string, required</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="message">message <span class="type">// string, required</span></label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary">Send →</button>
+            <span class="submit-note">responses usually within 1–2 days</span>
+          </div>
+          <p id="form-status" class="form-status" role="status"></p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p class="log">SYSTEM STATUS: <strong>OPERATIONAL</strong> · LAST BUILD 2026.07 · LOCAL TIME <span id="footer-clock"></span></p>
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a href="mailto:max@example.com" aria-label="Email">@</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
