@@ -52,28 +52,52 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(render, 1000);
   }
 
-  /* ---------- 4. contact form: local validation + status message ----------
-     No backend exists on this static demo — we simulate a queued request
-     so the form still feels real without silently failing. */
+    /* ---------- 4. contact form: open email client with pre-filled message ---------- */
   const form = document.getElementById('contact-form');
   if (form) {
     const status = document.getElementById('form-status');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) return;
-      const btn = form.querySelector('button[type="submit"]');
-      const original = btn.textContent;
-      btn.textContent = 'SENDING…';
-      btn.disabled = true;
+      
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      
+      const subject = `Contact from ${name}`;
+      const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${encodeURIComponent(message)}`;
+      
+      // Try to detect if user is on a specific email provider
+      // Option 1: Gmail
+      const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=adam.wetzli@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
+      
+      // Option 2: Outlook.com (personal)
+      const outlookLink = `https://outlook.live.com/mail/0/deeplink/compose?to=adam.wetzli@gmail.com&subject=${encodeURIComponent(subject)}&body=${body}`;
+      
+      // Option 3: Office 365 / Work Outlook
+      const officeLink = `https://outlook.office.com/mail/deeplink/compose?to=adam.wetzli@gmail.com&subject=${encodeURIComponent(subject)}&body=${body}`;
+      
+      // Option 4: Yahoo Mail
+      const yahooLink = `https://compose.mail.yahoo.com/?to=adam.wetzli@gmail.com&subject=${encodeURIComponent(subject)}&body=${body}`;
+      
+      // Default: Try Gmail first (most common)
+      window.open(gmailLink, '_blank');
+      
+      // Also try mailto: as fallback for desktop clients
+      const mailtoLink = `mailto:adam.wetzli@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
       setTimeout(() => {
-        btn.textContent = original;
-        btn.disabled = false;
-        if (status) {
-          status.textContent = '✓ 202 Accepted — message queued. I reply within a day or two.';
-          status.classList.add('show');
-        }
-        form.reset();
-      }, 700);
+        window.location.href = mailtoLink;
+      }, 500);
+      
+      if (status) {
+        status.textContent = '✓ Opening email — please send the message!';
+        status.classList.add('show');
+        status.style.color = 'var(--signal)';
+      }
     });
   }
 
