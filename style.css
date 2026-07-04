@@ -769,3 +769,133 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .section{ padding: 76px 0; }
   footer .container{ flex-direction:column; align-items:flex-start; }
 }
+
+/* ---------- Email copy modal ---------- */
+.email-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.email-modal.show {
+  display: flex;
+}
+
+.email-modal-content {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 40px 48px 32px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: slideUp 0.25s ease;
+}
+
+.email-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--ink-faint);;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.email-modal-close:hover {
+  color: var(--ink);
+}
+
+.email-modal-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.email-modal-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+.email-address-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  padding: 4px 4px 4px 16px;
+  margin-bottom: 12px;
+}
+
+#email-address {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink);
+  text-align: left;
+  word-break: break-all;
+}
+
+.btn-copy {
+  background: var(--signal);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.btn-copy:hover {
+  background: var(--signal-ink);
+}
+
+.btn-copy:active {
+  transform: scale(0.96);
+}
+
+.btn-copy.copied {
+  background: #22c55e;
+}
+
+.email-modal-note {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

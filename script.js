@@ -153,4 +153,75 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------- 8. Email copy modal ---------- */
+  const emailTrigger = document.getElementById('email-copy-trigger');
+  const emailModal = document.getElementById('email-modal');
+  const modalClose = document.getElementById('email-modal-close');
+  const copyBtn = document.getElementById('copy-email-btn');
+  const emailAddress = document.getElementById('email-address');
+
+  if (emailTrigger && emailModal) {
+    // Open modal
+    emailTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      emailModal.classList.add('show');
+    });
+
+    // Close modal
+    const closeModal = () => {
+      emailModal.classList.remove('show');
+      // Reset copy button text
+      if (copyBtn) {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }
+    };
+
+    modalClose.addEventListener('click', closeModal);
+
+    // Close on background click
+    emailModal.addEventListener('click', (e) => {
+      if (e.target === emailModal) {
+        closeModal();
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && emailModal.classList.contains('show')) {
+        closeModal();
+      }
+    });
+
+    // Copy email
+    if (copyBtn && emailAddress) {
+      copyBtn.addEventListener('click', async () => {
+        const email = emailAddress.textContent;
+        try {
+          await navigator.clipboard.writeText(email);
+          copyBtn.textContent = 'Copied!';
+          copyBtn.classList.add('copied');
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          // Fallback for older browsers
+          const textarea = document.createElement('textarea');
+          textarea.value = email;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          copyBtn.textContent = 'Copied!';
+          copyBtn.classList.add('copied');
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        }
+      });
+    }
+  }
+
 });
