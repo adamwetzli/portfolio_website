@@ -103,4 +103,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------- 7. PDF download ---------- */
+  const pdfBtn = document.getElementById('download-pdf');
+  if (pdfBtn) {
+    pdfBtn.addEventListener('click', function() {
+      // Get the section you want to export
+      const element = document.querySelector('.section-tight');
+      
+      // Configuration for the PDF
+      const opt = {
+        margin:        [8, 8, 8, 8],
+        filename:     'CV_Adam_Scheuerlein.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { 
+          scale: 2, 
+          useCORS: true, 
+          letterRendering: true,
+          backgroundColor: '#ffffff'
+        },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      
+      // Generate and download the PDF
+      html2pdf().set(opt).from(element).save();
+    });
+  }
+
 });
