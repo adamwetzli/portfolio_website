@@ -224,4 +224,117 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ---------- 9. cursor duck: a little friend that waddles to the pointer ---------- */
+  (function initCursorDuck(){
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    if (prefersReducedMotion || !hasFinePointer) return;
+
+    const duck = document.createElement('div');
+    duck.id = 'cursor-duck';
+    duck.setAttribute('aria-hidden', 'true');
+    duck.innerHTML = `
+      <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+        <g class="duck-leg leg-back">
+          <rect x="41" y="60" width="6" height="16" rx="3" fill="#D9832A"/>
+          <path d="M37 76 L51 76 L47 82 L41 82 Z" fill="#D9832A"/>
+        </g>
+        <g class="duck-bob">
+          <ellipse cx="46" cy="52" rx="28" ry="20" fill="#FFD23F"/>
+          <path d="M22 50 Q34 60 48 51" stroke="#E8B93A" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".6"/>
+          <circle cx="68" cy="32" r="15" fill="#FFD23F"/>
+          <path d="M80 31 L95 27 L95 38 Z" fill="#FF8C1A"/>
+          <circle cx="72" cy="27" r="2" fill="#171B1F"/>
+        </g>
+        <g class="duck-leg leg-front">
+          <rect x="55" y="60" width="6" height="16" rx="3" fill="#FF8C1A"/>
+          <path d="M51 76 L65 76 L61 82 L55 82 Z" fill="#FF8C1A"/>
+        </g>
+      </svg>`;
+    document.body.appendChild(duck);
+
+    const PROXIMITY_RADIUS = 240;   // px — how close the cursor must be before the duck notices it
+    const WANDER_SPEED     = 0.55;  // px / frame — its own lazy pace
+    const CHASE_SPEED      = 1.1;   // px / frame — still unhurried, just a bit more purposeful
+    const EDGE_MARGIN      = 60;    // keep the duck away from the very edge of the viewport
+
+    let duckX = window.innerWidth * (0.3 + Math.random() * 0.4);
+    let duckY = window.innerHeight * (0.3 + Math.random() * 0.4);
+    let targetX = duckX;
+    let targetY = duckY;
+    let facing = 1;      // 1 = facing right, -1 = facing left
+    let waddleT = 0;
+
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let mouseInWindow = false;
+
+    let pauseUntil = 0; // timestamp until which the duck stands still between wanders
+
+    function pickWanderTarget(){
+      const w = window.innerWidth, h = window.innerHeight;
+      targetX = EDGE_MARGIN + Math.random() * Math.max(w - EDGE_MARGIN * 2, 1);
+      targetY = EDGE_MARGIN + Math.random() * Math.max(h - EDGE_MARGIN * 2, 1);
+    }
+    pickWanderTarget();
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      mouseInWindow = true;
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => { mouseInWindow = false; });
+    window.addEventListener('blur', () => { mouseInWindow = false; });
+
+    function tick(now){
+      const distToMouse = mouseInWindow ? Math.hypot(mouseX - duckX, mouseY - duckY) : Infinity;
+      const chasing = distToMouse < PROXIMITY_RADIUS;
+
+      if (chasing) {
+        targetX = mouseX;
+        targetY = mouseY;
+      }
+
+      const dx = targetX - duckX;
+      const dy = targetY - duckY;
+      const dist = Math.hypot(dx, dy);
+
+      let moving = false;
+
+      if (dist > 4) {
+        const speed = chasing ? CHASE_SPEED : WANDER_SPEED;
+        duckX += (dx / dist) * speed;
+        duckY += (dy / dist) * speed;
+        moving = true;
+        if (Math.abs(dx) > 1.5) facing = dx < 0 ? -1 : 1;
+        pauseUntil = 0;
+      } else if (!chasing) {
+        // reached a wander waypoint — stand around for a bit before picking another
+        if (pauseUntil === 0) {
+          pauseUntil = now + 900 + Math.random() * 1800;
+        } else if (now >= pauseUntil) {
+          pickWanderTarget();
+          pauseUntil = 0;
+        }
+      }
+
+      duck.classList.toggle('is-walking', moving);
+      duck.classList.toggle('is-idle', !moving);
+
+      if (moving) {
+        waddleT += chasing ? 0.22 : 0.16;
+      }
+
+      const waddleAngle = moving ? Math.sin(waddleT) * 5 : 0;
+
+      duck.style.transform =
+        `translate3d(${duckX - 28}px, ${duckY - 25}px, 0) rotate(${waddleAngle}deg) scaleX(${facing})`;
+
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  })();
+
 });

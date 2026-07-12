@@ -899,3 +899,79 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     transform: translateY(0) scale(1);
   }
 }
+/* =========================================================
+   CURSOR DUCK — a little companion that waddles to the pointer
+   ========================================================= */
+#cursor-duck{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(-200px, -200px, 0);
+  will-change: transform;
+  transition: opacity .25s var(--ease);
+}
+#cursor-duck svg{
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+  filter: drop-shadow(0 3px 3px rgba(23,27,31,.18));
+}
+
+/* legs swing from the hip while walking, freeze while idle */
+#cursor-duck .duck-leg{
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: duck-leg-front .42s ease-in-out infinite;
+  animation-play-state: paused;
+}
+#cursor-duck .duck-leg.leg-back{
+  animation-name: duck-leg-back;
+}
+#cursor-duck.is-walking .duck-leg{
+  animation-play-state: running;
+}
+
+/* body/head bob while walking, gentle breathing bob while idle */
+#cursor-duck .duck-bob{
+  transform-box: fill-box;
+  animation: duck-bob .42s ease-in-out infinite;
+  animation-play-state: paused;
+}
+#cursor-duck.is-walking .duck-bob{
+  animation-play-state: running;
+}
+#cursor-duck.is-idle .duck-bob{
+  animation: duck-idle-bob 2.6s ease-in-out infinite;
+  animation-play-state: running;
+}
+
+@keyframes duck-leg-front{
+  0%, 100% { transform: rotate(-24deg); }
+  50%      { transform: rotate(24deg); }
+}
+@keyframes duck-leg-back{
+  0%, 100% { transform: rotate(24deg); }
+  50%      { transform: rotate(-24deg); }
+}
+@keyframes duck-bob{
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes duck-idle-bob{
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-1.5px); }
+}
+
+/* hide entirely for touch devices (no cursor to follow) and
+   for anyone who's asked for reduced motion */
+@media (hover: none), (pointer: coarse){
+  #cursor-duck{ display: none; }
+}
+@media (prefers-reduced-motion: reduce){
+  #cursor-duck{ display: none; }
+}
