@@ -967,11 +967,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   50%      { transform: translateY(-1.5px); }
 }
 
-/* hide entirely for touch devices (no cursor to follow) and
-   for anyone who's asked for reduced motion */
-@media (hover: none), (pointer: coarse){
-  #cursor-duck{ display: none; }
-}
+/* hide entirely for anyone who's asked for reduced motion */
 @media (prefers-reduced-motion: reduce){
   #cursor-duck{ display: none; }
 }

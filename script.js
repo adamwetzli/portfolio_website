@@ -227,8 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- 9. cursor duck: a little friend that waddles to the pointer ---------- */
   (function initCursorDuck(){
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-    if (prefersReducedMotion || !hasFinePointer) return;
+    if (prefersReducedMotion) return;
 
     const duck = document.createElement('div');
     duck.id = 'cursor-duck';
@@ -286,6 +285,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('mouseleave', () => { mouseInWindow = false; });
     window.addEventListener('blur', () => { mouseInWindow = false; });
+
+    // touch devices have no hover/pointer to follow continuously, so we
+    // treat an active touch like a temporary mouse position: the duck
+    // waddles toward wherever the finger is while it's down, then goes
+    // back to wandering on its own a moment after it lifts.
+    let touchReleaseTimer = null;
+    const updateFromTouch = (e) => {
+      const t = e.touches && e.touches[0];
+      if (!t) return;
+      mouseX = t.clientX;
+      mouseY = t.clientY;
+      mouseInWindow = true;
+      if (touchReleaseTimer) {
+        clearTimeout(touchReleaseTimer);
+        touchReleaseTimer = null;
+      }
+    };
+    const scheduleTouchRelease = () => {
+      if (touchReleaseTimer) clearTimeout(touchReleaseTimer);
+      touchReleaseTimer = setTimeout(() => {
+        mouseInWindow = false;
+        touchReleaseTimer = null;
+      }, 600);
+    };
+    window.addEventListener('touchstart', updateFromTouch, { passive: true });
+    window.addEventListener('touchmove', updateFromTouch, { passive: true });
+    window.addEventListener('touchend', scheduleTouchRelease, { passive: true });
+    window.addEventListener('touchcancel', scheduleTouchRelease, { passive: true });
 
     function tick(now){
       const distToMouse = mouseInWindow ? Math.hypot(mouseX - duckX, mouseY - duckY) : Infinity;
