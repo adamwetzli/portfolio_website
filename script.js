@@ -255,10 +255,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const PROXIMITY_RADIUS = 240;   // px — how close the cursor must be before the duck notices it
     const WANDER_SPEED     = 0.55;  // px / frame — its own lazy pace
     const CHASE_SPEED      = 1.1;   // px / frame — still unhurried, just a bit more purposeful
-    const EDGE_MARGIN      = 60;    // keep the duck away from the very edge of the viewport
+    const EDGE_MARGIN      = 60;    // keep the duck away from the very edge of the page
 
-    let duckX = window.innerWidth * (0.3 + Math.random() * 0.4);
-    let duckY = window.innerHeight * (0.3 + Math.random() * 0.4);
+    // The duck lives in *page* coordinates (like an absolutely positioned
+    // element in the document), not viewport coordinates — so scrolling
+    // moves the page past the duck instead of dragging the duck along
+    // with it. That also means it can end up above/below the fold.
+    const pageWidth = () => document.documentElement.scrollWidth;
+    const pageHeight = () => document.documentElement.scrollHeight;
+
+    let duckX = pageWidth() * (0.3 + Math.random() * 0.4);
+    let duckY = window.scrollY + window.innerHeight * (0.3 + Math.random() * 0.4);
     let targetX = duckX;
     let targetY = duckY;
     let facing = 1;      // 1 = facing right, -1 = facing left
@@ -271,15 +278,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let pauseUntil = 0; // timestamp until which the duck stands still between wanders
 
     function pickWanderTarget(){
-      const w = window.innerWidth, h = window.innerHeight;
+      const w = pageWidth(), h = pageHeight();
       targetX = EDGE_MARGIN + Math.random() * Math.max(w - EDGE_MARGIN * 2, 1);
       targetY = EDGE_MARGIN + Math.random() * Math.max(h - EDGE_MARGIN * 2, 1);
     }
     pickWanderTarget();
 
     window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      mouseX = e.pageX;
+      mouseY = e.pageY;
       mouseInWindow = true;
     }, { passive: true });
 
@@ -294,8 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateFromTouch = (e) => {
       const t = e.touches && e.touches[0];
       if (!t) return;
-      mouseX = t.clientX;
-      mouseY = t.clientY;
+      mouseX = t.pageX;
+      mouseY = t.pageY;
       mouseInWindow = true;
       if (touchReleaseTimer) {
         clearTimeout(touchReleaseTimer);

@@ -903,7 +903,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    CURSOR DUCK — a little companion that waddles to the pointer
    ========================================================= */
 #cursor-duck{
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 56px;
