@@ -297,10 +297,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // treat an active touch like a temporary mouse position: the duck
     // waddles toward wherever the finger is while it's down, then goes
     // back to wandering on its own a moment after it lifts.
+    //
+    // Important: pageY = clientY + scrollY, and while the user is
+    // scroll-dragging, scrollY changes on every touchmove even though
+    // the finger barely moves on screen — so the naive "target = touch
+    // page position" would drift in lockstep with the scroll and make
+    // the duck look like it's glued to the viewport. To avoid that, we
+    // track how much the page has scrolled since the touch started and
+    // bail out of "chase the touch" mode the moment that's a real scroll.
     let touchReleaseTimer = null;
-    const updateFromTouch = (e) => {
+    let touchStartScrollY = 0;
+    const SCROLL_GESTURE_THRESHOLD = 10; // px of scroll before we call it "scrolling, not pointing"
+
+    const onTouchStart = (e) => {
       const t = e.touches && e.touches[0];
       if (!t) return;
+      touchStartScrollY = window.scrollY;
       mouseX = t.pageX;
       mouseY = t.pageY;
       mouseInWindow = true;
@@ -309,6 +321,20 @@ document.addEventListener('DOMContentLoaded', () => {
         touchReleaseTimer = null;
       }
     };
+    const onTouchMove = (e) => {
+      const t = e.touches && e.touches[0];
+      if (!t) return;
+      const scrolled = Math.abs(window.scrollY - touchStartScrollY) > SCROLL_GESTURE_THRESHOLD;
+      if (scrolled) {
+        // this touch is scrolling the page, not pointing at something —
+        // stop chasing so the duck doesn't appear to ride along with it
+        mouseInWindow = false;
+        return;
+      }
+      mouseX = t.pageX;
+      mouseY = t.pageY;
+      mouseInWindow = true;
+    };
     const scheduleTouchRelease = () => {
       if (touchReleaseTimer) clearTimeout(touchReleaseTimer);
       touchReleaseTimer = setTimeout(() => {
@@ -316,8 +342,8 @@ document.addEventListener('DOMContentLoaded', () => {
         touchReleaseTimer = null;
       }, 600);
     };
-    window.addEventListener('touchstart', updateFromTouch, { passive: true });
-    window.addEventListener('touchmove', updateFromTouch, { passive: true });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
     window.addEventListener('touchend', scheduleTouchRelease, { passive: true });
     window.addEventListener('touchcancel', scheduleTouchRelease, { passive: true });
 
