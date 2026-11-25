@@ -1,0 +1,23 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Docker files (not needed inside the served site)
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Editor / tooling / OS files
+.claude
+.vscode
+.idea
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Misc
+*.md
+.env*
+node_modules
