@@ -201,8 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- 9. cursor duck: a little friend that waddles to the pointer ---------- */
   (function initCursorDuck(){
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-    if (prefersReducedMotion || !hasFinePointer) return;
+    if (prefersReducedMotion) return;
 
     const duck = document.createElement('div');
     duck.id = 'cursor-duck';
@@ -230,10 +229,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const PROXIMITY_RADIUS = 240;   // px — how close the cursor must be before the duck notices it
     const WANDER_SPEED     = 0.55;  // px / frame — its own lazy pace
     const CHASE_SPEED      = 1.1;   // px / frame — still unhurried, just a bit more purposeful
-    const EDGE_MARGIN      = 60;    // keep the duck away from the very edge of the viewport
+    const EDGE_MARGIN      = 60;    // keep the duck away from the very edge of the page
 
-    let duckX = window.innerWidth * (0.3 + Math.random() * 0.4);
-    let duckY = window.innerHeight * (0.3 + Math.random() * 0.4);
+    // The duck lives in *page* coordinates (like an absolutely positioned
+    // element in the document), not viewport coordinates — so scrolling
+    // moves the page past the duck instead of dragging the duck along
+    // with it. That also means it can end up above/below the fold.
+    const pageWidth = () => document.documentElement.scrollWidth;
+    const pageHeight = () => document.documentElement.scrollHeight;
+
+    let duckX = pageWidth() * (0.3 + Math.random() * 0.4);
+    let duckY = window.scrollY + window.innerHeight * (0.3 + Math.random() * 0.4);
     let targetX = duckX;
     let targetY = duckY;
     let facing = 1;      // 1 = facing right, -1 = facing left
@@ -246,20 +252,74 @@ document.addEventListener('DOMContentLoaded', () => {
     let pauseUntil = 0; // timestamp until which the duck stands still between wanders
 
     function pickWanderTarget(){
-      const w = window.innerWidth, h = window.innerHeight;
+      const w = pageWidth(), h = pageHeight();
       targetX = EDGE_MARGIN + Math.random() * Math.max(w - EDGE_MARGIN * 2, 1);
       targetY = EDGE_MARGIN + Math.random() * Math.max(h - EDGE_MARGIN * 2, 1);
     }
     pickWanderTarget();
 
     window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      mouseX = e.pageX;
+      mouseY = e.pageY;
       mouseInWindow = true;
     }, { passive: true });
 
     document.addEventListener('mouseleave', () => { mouseInWindow = false; });
     window.addEventListener('blur', () => { mouseInWindow = false; });
+
+    // touch devices have no hover/pointer to follow continuously, so we
+    // treat an active touch like a temporary mouse position: the duck
+    // waddles toward wherever the finger is while it's down, then goes
+    // back to wandering on its own a moment after it lifts.
+    //
+    // Important: pageY = clientY + scrollY, and while the user is
+    // scroll-dragging, scrollY changes on every touchmove even though
+    // the finger barely moves on screen — so the naive "target = touch
+    // page position" would drift in lockstep with the scroll and make
+    // the duck look like it's glued to the viewport. To avoid that, we
+    // track how much the page has scrolled since the touch started and
+    // bail out of "chase the touch" mode the moment that's a real scroll.
+    let touchReleaseTimer = null;
+    let touchStartScrollY = 0;
+    const SCROLL_GESTURE_THRESHOLD = 10; // px of scroll before we call it "scrolling, not pointing"
+
+    const onTouchStart = (e) => {
+      const t = e.touches && e.touches[0];
+      if (!t) return;
+      touchStartScrollY = window.scrollY;
+      mouseX = t.pageX;
+      mouseY = t.pageY;
+      mouseInWindow = true;
+      if (touchReleaseTimer) {
+        clearTimeout(touchReleaseTimer);
+        touchReleaseTimer = null;
+      }
+    };
+    const onTouchMove = (e) => {
+      const t = e.touches && e.touches[0];
+      if (!t) return;
+      const scrolled = Math.abs(window.scrollY - touchStartScrollY) > SCROLL_GESTURE_THRESHOLD;
+      if (scrolled) {
+        // this touch is scrolling the page, not pointing at something —
+        // stop chasing so the duck doesn't appear to ride along with it
+        mouseInWindow = false;
+        return;
+      }
+      mouseX = t.pageX;
+      mouseY = t.pageY;
+      mouseInWindow = true;
+    };
+    const scheduleTouchRelease = () => {
+      if (touchReleaseTimer) clearTimeout(touchReleaseTimer);
+      touchReleaseTimer = setTimeout(() => {
+        mouseInWindow = false;
+        touchReleaseTimer = null;
+      }, 600);
+    };
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('touchend', scheduleTouchRelease, { passive: true });
+    window.addEventListener('touchcancel', scheduleTouchRelease, { passive: true });
 
     function tick(now){
       const distToMouse = mouseInWindow ? Math.hypot(mouseX - duckX, mouseY - duckY) : Infinity;
